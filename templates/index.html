@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Surveillance</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f4f4f4;
+        }
+        #video-container {
+            max-width: 100%;
+            margin: 20px 0;
+        }
+        #live-stream {
+            max-width: 100%;
+            background: black;
+        }
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Live Surveillance</h1>
+    <div id="video-container">
+        <img src="/video_feed" id="live-stream" alt="Live Video Feed">
+    </div>
+    <div class="controls">
+        <button onclick="captureImage()">Capture Image</button>
+        <button onclick="toggleRecording()">Start/Stop Recording</button>
+        <a href="/show_media"><button>View Captured Media</button></a>
+    </div>
+
+    <script>
+        function captureImage() {
+            fetch('/capture_image')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        alert('Image captured successfully!');
+                    }
+                });
+        }
+
+        function toggleRecording() {
+            fetch('/toggle_recording')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'recording_started') {
+                        alert('Recording started');
+                    } else {
+                        alert('Recording stopped');
+                    }
+                });
+        }
+    </script>
+</body>
+</html>
