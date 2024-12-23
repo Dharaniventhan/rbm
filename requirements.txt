@@ -2,4 +2,4 @@ Flask==2.3.2
 picamera2==0.2.2
 opencv-python-headless==4.7.0.72
 gunicorn==20.1.0
-pyprctl==1.8.0  # Replace python-prctl with pyprctl
+pyprctl # Replace python-prctl with pyprctl
