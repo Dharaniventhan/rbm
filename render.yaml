@@ -1,0 +1,8 @@
+services:
+  - type: web
+    name: raspberry-pi-camera
+    env: docker
+    plan: free
+    buildCommand: # No need to use pip or poetry, as Dockerfile handles this
+    startCommand: gunicorn -b 0.0.0.0:5000 app:app
+    autoDeploy: true
