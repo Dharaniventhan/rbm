@@ -5,12 +5,13 @@ FROM python:3.11-slim
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE=1
 
-# Step 3: Install necessary system dependencies for picamera2 and opencv
+# Step 3: Install necessary system dependencies for picamera2, opencv, and libcamera
 RUN apt-get update && apt-get install -y \
     libcap-dev \
     build-essential \
     libopencv-dev \
     libcamera-dev \
+    libcamera-utils \
     && rm -rf /var/lib/apt/lists/*
 
 # Step 4: Set the working directory inside the container
@@ -30,4 +31,3 @@ EXPOSE 5000
 
 # Step 9: Specify the command to run the app (using Gunicorn)
 CMD ["gunicorn", "-b", "0.0.0.0:5000", "surveillance:app"]
-
