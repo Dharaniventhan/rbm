@@ -13,20 +13,23 @@ RUN apt-get update && apt-get install -y \
     libcamera-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Step 4: Set the working directory inside the container
+# Step 4: Install libcamera python bindings
+RUN apt-get update && apt-get install -y python3-libcamera
+
+# Step 5: Set the working directory inside the container
 WORKDIR /app
 
-# Step 5: Copy the requirements.txt file into the container
+# Step 6: Copy the requirements.txt file into the container
 COPY requirements.txt .
 
-# Step 6: Install Python dependencies
+# Step 7: Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Step 7: Copy the rest of the application code into the container
+# Step 8: Copy the rest of the application code into the container
 COPY . .
 
-# Step 8: Expose the port the app will run on (default for Flask is 5000)
+# Step 9: Expose the port the app will run on (default for Flask is 5000)
 EXPOSE 5000
 
-# Step 9: Specify the command to run the app (using Gunicorn)
+# Step 10: Specify the command to run the app (using Gunicorn)
 CMD ["gunicorn", "-b", "0.0.0.0:5000", "surveillance:app"]
